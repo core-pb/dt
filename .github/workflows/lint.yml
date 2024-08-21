@@ -16,6 +16,16 @@ jobs:
 
       - run: go version
       - run: diff -u <(echo -n) <(gofmt -d .)
+
+      - uses: bufbuild/buf-action@v1
+        with:
+          format: true
+          lint: true
+          breaking: true
+          push: false
+          archive: false
+          pr_comment: false
+
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v3
 
