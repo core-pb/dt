@@ -1,0 +1,30 @@
+syntax = "proto3";
+package ip.v1;
+
+option go_package = "github.com/core-pb/dt/ip/v1;ip";
+
+message IP {
+  oneof addr {
+    IPv4 v4 = 1;
+    IPv6 v6 = 2;
+  }
+}
+
+message AddrPort {
+  IP addr = 1;
+  uint32 port = 2;
+}
+
+message Prefix {
+  IP addr = 1;
+  int32 bits = 2;
+}
+
+message IPv4 {
+  fixed32 ip = 1;
+}
+
+message IPv6 {
+  fixed64 hi = 1;
+  fixed64 lo = 2;
+}
