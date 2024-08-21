@@ -7,4 +7,4 @@ lint:
     - DEFAULT
 modules:
   - path: pb
-    name: github.com/core-pb/dt
+    name: buf.build/core-pb/dt
