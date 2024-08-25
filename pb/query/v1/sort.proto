@@ -5,7 +5,7 @@ option go_package = "github.com/core-pb/dt/query/v1;query";
 
 message Sort {
   oneof key {
-    string asc  = 1;
+    string asc = 1;
     string desc = 2;
   }
 }
