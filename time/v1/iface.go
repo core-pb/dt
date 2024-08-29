@@ -30,6 +30,9 @@ func (x *Time) Scan(src any) error {
 			return err
 		}
 		x.Set(*t)
+
+	case time.Time:
+		x.Set(src)
 	}
 
 	return nil
