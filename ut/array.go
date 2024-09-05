@@ -1,4 +1,4 @@
-package dt
+package ut
 
 func Array2Array[A1, A2 any](arr []A1, getKey func(A1) A2) []A2 {
 	val := make([]A2, 0, len(arr))
@@ -13,6 +13,7 @@ func Array2Map[K comparable, V any](arr []V, getKey func(V) K) map[K]V {
 	for i := range arr {
 		m[getKey(arr[i])] = arr[i]
 	}
+
 	return m
 }
 
