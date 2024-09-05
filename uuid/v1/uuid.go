@@ -7,8 +7,23 @@ import (
 	"github.com/google/uuid"
 )
 
-func (x *UUID) FromUUID(u uuid.UUID) {
-	x.Hi, x.Lo = binary.BigEndian.Uint64(u[:8]), binary.BigEndian.Uint64(u[8:])
+func New() *UUID { return (&UUID{}).FromUUID(uuid.New()) }
+
+func NewUUID() (*UUID, error) {
+	val, err := uuid.NewUUID()
+	if err != nil {
+		return nil, err
+	}
+	return (&UUID{}).FromUUID(val), nil
+}
+
+func (x *UUID) FromUUID(u uuid.UUID) *UUID {
+	v := x
+	if v == nil {
+		v = new(UUID)
+	}
+	v.Hi, v.Lo = binary.BigEndian.Uint64(u[:8]), binary.BigEndian.Uint64(u[8:])
+	return v
 }
 
 func (x *UUID) ToUUID() (uuid.UUID, error) {
