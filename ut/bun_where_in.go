@@ -13,10 +13,14 @@ func (x *BunHelp) WhereIn(key string, val any) *BunHelp {
 	}
 
 	rv := reflect.ValueOf(val)
-	if rv.Len() == 1 {
+	switch rv.Len() {
+	case 0:
+		return x
+	case 1:
 		return x.Where("? = ?", bun.Ident(key), rv.Index(0).Interface())
+	default:
+		return x.Where("? IN (?)", bun.Ident(key), bun.In(val))
 	}
-	return x.Where("? IN (?)", bun.Ident(key), bun.In(val))
 }
 
 func (x *BunHelp) WhereInX(key string, val any) *BunHelp {
@@ -25,10 +29,14 @@ func (x *BunHelp) WhereInX(key string, val any) *BunHelp {
 	}
 
 	rv := reflect.ValueOf(val)
-	if rv.Len() == 1 {
+	switch rv.Len() {
+	case 0:
+		return x
+	case 1:
 		return x.Where(key+" = ?", rv.Index(0).Interface())
+	default:
+		return x.Where(key+" IN (?)", bun.In(val))
 	}
-	return x.Where(key+" IN (?)", bun.In(val))
 }
 
 func (x *BunHelp) WhereEqOrLike(key string, val string) *BunHelp {
